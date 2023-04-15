@@ -129,6 +129,9 @@ def pregunta_05():
     ]
 
     """
+    x_int = [(letter, int(number)) for letter, number in x]
+    result = [(letter, max(row[1] for row in x_int if row[0] == letter), min(row[1] for row in x_int if row[0] == letter)) for letter in set(row[0] for row in x_int)]
+    result.sort()
     return
 
 
