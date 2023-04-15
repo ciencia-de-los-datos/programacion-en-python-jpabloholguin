@@ -11,6 +11,10 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+from csv import reader
+x = open("data.csv","r")
+lines =reader(x, delimiter='\t')
+lines  =list(lines)
 
 
 def pregunta_01():
@@ -21,7 +25,12 @@ def pregunta_01():
     214
 
     """
-    return
+
+    x=0
+    for i in range(0,len(lines)):
+        x+= int(lines[i][1])
+    
+    return x
 
 
 def pregunta_02():
@@ -39,7 +48,11 @@ def pregunta_02():
     ]
 
     """
-    return
+    primcolumna = [i[0] for i in lines]
+    noduplicadas = sorted(set(primcolumna))
+    listatuplas = [(j,primcolumna.count(j)) for j in noduplicadas]
+
+    return listatuplas
 
 
 def pregunta_03():
@@ -57,7 +70,18 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+    x_int = [(letter, int(number)) for letter, number in x]
+
+    sum_by_letter = {}
+    for letter, number in x_int:
+        if letter not in sum_by_letter:
+            sum_by_letter[letter] = number
+        else:
+            sum_by_letter[letter] += number
+
+    result = sorted(sum_by_letter.items())
+    return result
 
 
 def pregunta_04():
@@ -82,7 +106,12 @@ def pregunta_04():
     ]
 
     """
-    return
+    from collections import Counter
+    fecha = [z[2] for z in x[0:]]
+    fecha= [t[2].split('-') for t in x[0:]]
+    fecha = [t[2].split('-')[1] for t in x[0:]]
+    result = sorted(list(Counter(fecha).items()))
+    return result
 
 
 def pregunta_05():
