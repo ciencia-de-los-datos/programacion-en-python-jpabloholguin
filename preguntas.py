@@ -70,18 +70,22 @@ def pregunta_03():
     ]
 
     """
-    
-    x_int = [(letter, int(number)) for letter, number in x]
-
-    sum_by_letter = {}
-    for letter, number in x_int:
-        if letter not in sum_by_letter:
-            sum_by_letter[letter] = number
-        else:
-            sum_by_letter[letter] += number
-
-    result = sorted(sum_by_letter.items())
-    return result
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = {
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0
+    }
+    for i in data:
+        fila=i.replace("\t", " ").split()
+        letra = fila[0]
+        numero= int(fila[1])
+        diccionario[letra] += numero
+        
+    return list(zip(diccionario.keys(),diccionario.values()))
 
 
 def pregunta_04():
@@ -106,12 +110,27 @@ def pregunta_04():
     ]
 
     """
-    from collections import Counter
-    fecha = [z[2] for z in x[0:]]
-    fecha= [t[2].split('-') for t in x[0:]]
-    fecha = [t[2].split('-')[1] for t in x[0:]]
-    result = sorted(list(Counter(fecha).items()))
-    return result
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = {
+        "01": 0,
+        "02": 0,
+        "03": 0,
+        "04": 0,
+        "05": 0,
+        "06": 0,
+        "07": 0,
+        "08": 0,
+        "09": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0
+    }
+    for i in data:
+        aux = (i.replace("\t", " ").split()[2].split("-")[1])
+        diccionario[aux] += 1
+        
+    return list(zip(diccionario.keys(),diccionario.values()))
 
 
 def pregunta_05():
@@ -129,35 +148,62 @@ def pregunta_05():
     ]
 
     """
-    x_int = [(letter, int(number)) for letter, number in x]
-    result = [(letter, max(row[1] for row in x_int if row[0] == letter), min(row[1] for row in x_int if row[0] == letter)) for letter in set(row[0] for row in x_int)]
-    result.sort()
-    return
+    file = open("data.csv")
+    data = file.readlines()
+    max = {
+        "A": -99999,
+        "B": -99999,
+        "C": -99999,
+        "D": -99999,
+        "E": -99999
+    }
+    min = {
+        "A": 99999,
+        "B": 99999,
+        "C": 99999,
+        "D": 99999,
+        "E": 99999
+    }
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        letra = fila[0]
+        numero = int(fila[1])
+        if max[letra]<numero:
+            max[letra]=numero
+        if min[letra]>numero:
+            min[letra]=numero
+        
+    return list(zip(min.keys(),max.values(),min.values()))
+
 
 
 def pregunta_06():
-    """
-    La columna 5 codifica un diccionario donde cada cadena de tres letras corresponde a
-    una clave y el valor despues del caracter `:` corresponde al valor asociado a la
-    clave. Por cada clave, obtenga el valor asociado mas pequeño y el valor asociado mas
-    grande computados sobre todo el archivo.
+    file = open("data.csv")
+    data = file.readlines()
+    max = {
 
-    Rta/
-    [
-        ("aaa", 1, 9),
-        ("bbb", 1, 9),
-        ("ccc", 1, 10),
-        ("ddd", 0, 9),
-        ("eee", 1, 7),
-        ("fff", 0, 9),
-        ("ggg", 3, 10),
-        ("hhh", 0, 9),
-        ("iii", 0, 9),
-        ("jjj", 5, 17),
-    ]
+    }
+    min = {
 
-    """
-    return
+    }
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        diccionarios=fila[4].split(",")
+        for j in diccionarios:
+            clave ,numero = j.split(":")
+            if clave in min:
+                if min[clave] > int(numero):
+                    min[clave] = int(numero)
+                elif max[clave] < int(numero):
+                    max[clave] = int(numero)
+            else:
+                min[clave] = int(numero)
+                max[clave] = int(numero)
+                
+    lista=list(zip(min.keys(),min.values(),max.values()))
+    lista.sort()                   
+    return lista
+
 
 
 def pregunta_07():
@@ -181,7 +227,20 @@ def pregunta_07():
     ]
 
     """
-    return
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario=dict()
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        clave=int(fila[1])
+        valor=fila[0]
+        if clave not in diccionario:
+            diccionario[clave]=[]
+        diccionario[clave].append(valor)
+        
+    lista=list(zip(diccionario.keys(),diccionario.values()))
+    lista.sort()   
+    return lista
 
 
 def pregunta_08():
@@ -206,7 +265,22 @@ def pregunta_08():
     ]
 
     """
-    return
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = dict()
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        clave = int(fila[1])
+        valor = fila[0]
+        if clave not in diccionario :
+            diccionario[clave] = []
+        if valor not in diccionario[clave]:
+            diccionario[clave].append(valor)
+        diccionario[clave].sort()
+        
+    lista = list(zip(diccionario.keys(), diccionario.values()))
+    lista.sort()    
+    return lista
 
 
 def pregunta_09():
@@ -229,7 +303,23 @@ def pregunta_09():
     }
 
     """
-    return
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = {
+
+    }
+
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        diccionarios = fila[4].split(",")
+        for j in diccionarios:
+            clave, numero = j.split(":")
+            if clave not in diccionario:
+                diccionario[clave]=1
+            else:
+                diccionario[clave] += 1
+    diccionario = dict(sorted(diccionario.items()))        
+    return diccionario
 
 
 def pregunta_10():
@@ -250,7 +340,19 @@ def pregunta_10():
 
 
     """
-    return
+    
+    file = open("data.csv")
+    data = file.readlines()
+    letras=[]
+    cantidades4=[]
+    cantidades5 = []
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        letras.append(fila[0])
+        cantidades4.append(len(fila[3].split(",")))
+        cantidades5.append(len(fila[4].split(",")))
+        
+    return list(zip(letras, cantidades4,cantidades5))
 
 
 def pregunta_11():
@@ -271,7 +373,21 @@ def pregunta_11():
 
 
     """
-    return
+    
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = dict()
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        claves = fila[3].split(",")
+        valor = int(fila[1])
+        for j in claves:
+            if j in diccionario:
+                diccionario[j] += valor
+            else:
+                diccionario[j] = valor
+    diccionario = dict(sorted(diccionario.items()))
+    return diccionario
 
 
 def pregunta_12():
@@ -289,4 +405,21 @@ def pregunta_12():
     }
 
     """
-    return
+    file = open("data.csv")
+    data = file.readlines()
+    diccionario = {
+        "A": 0,
+        'B': 0,
+        'C': 0,
+        'D': 0,
+        'E': 0
+    }
+    for i in data:
+        fila = i.replace("\t", " ").split()
+        clave = fila[0]
+        valores= fila[4].split(",")
+        suma=0
+        for j in valores:
+            suma += int(j.split(":")[1])
+        diccionario[clave] += suma
+    return diccionario
